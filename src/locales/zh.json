@@ -1,0 +1,19 @@
+{
+    "prompts": {
+        "targetNotEmpty": "目标目录不为空。是否继续？",
+        "includeChatlunaFile": "是否包含 chatluna.ts 文件？（用于编写 ChatLuna 插件的功能）",
+        "pluginName": "插件名称：",
+        "pluginNameValidation": "名称必须以 koishi-plugin- 开头",
+        "selectTemplate": "选择模板类型：",
+        "templateMainDesc": "ChatLuna 插件（完全基于 ChatLuna）",
+        "templateDepDesc": "Koishi 插件（部分功能需要 ChatLuna）"
+    },
+    "messages": {
+        "detectedPlugin": "检测到插件目录：",
+        "detectedWorkspace": "检测到工作区目录：",
+        "pluginCreated": "✓ 插件已创建于",
+        "dependenciesAdded": "✓ 已添加 ChatLuna 依赖",
+        "nextSteps": "下一步：",
+        "packageNotFound": "目标目录中未找到 package.json"
+    }
+}

@@ -1,0 +1,25 @@
+export interface CliArgs {
+    _: string[]
+    force?: boolean
+    yes?: boolean
+    mode?: 'create' | 'add'
+}
+
+export interface PluginContext {
+    root: string
+    isPlugin: boolean
+    isWorkspace: boolean
+}
+
+export type TemplateType = 'main' | 'dep'
+
+export interface CreateOptions {
+    name: string
+    target: string
+    template: TemplateType
+}
+
+export interface AddOptions {
+    target: string
+    includeChatlunaFile: boolean
+}

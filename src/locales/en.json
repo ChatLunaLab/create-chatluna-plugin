@@ -1,0 +1,19 @@
+{
+  "prompts": {
+    "targetNotEmpty": "Target directory is not empty. Continue?",
+    "includeChatlunaFile": "Include chatluna.ts file?",
+    "pluginName": "Plugin name:",
+    "pluginNameValidation": "Name must start with koishi-plugin-",
+    "selectTemplate": "Select template type:",
+    "templateMainDesc": "ChatLuna plugin (fully based on ChatLuna)",
+    "templateDepDesc": "Koishi plugin (with ChatLuna features)"
+  },
+  "messages": {
+    "detectedPlugin": "Detected plugin directory:",
+    "detectedWorkspace": "Detected workspace directory:",
+    "pluginCreated": "✓ Plugin created at",
+    "dependenciesAdded": "✓ ChatLuna dependencies added",
+    "nextSteps": "Next steps:",
+    "packageNotFound": "package.json not found in target directory"
+  }
+}
