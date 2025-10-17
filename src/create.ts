@@ -43,7 +43,7 @@ export async function createPlugin(options: CreateOptions) {
     pkg.name = name
     await writePackageJson(pkgPath, pkg)
 
-    const mainFile = join(target, 'index.ts')
+    const mainFile = join(target, 'src/index.ts')
     let mainContent = await fs.readFile(mainFile, 'utf8')
     mainContent = mainContent.replace(
         /chatluna-example/g,
