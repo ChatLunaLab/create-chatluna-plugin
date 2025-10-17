@@ -2,6 +2,8 @@ import { join } from 'path'
 import kleur from 'kleur'
 import prompts from 'prompts'
 import whichPMRuns from 'which-pm-runs'
+import { exec } from 'child_process'
+import { promisify } from 'util'
 import type { TemplateType } from './types.js'
 import { detectContext, showBanner } from './utils.js'
 import { createPlugin } from './create.js'
@@ -9,29 +11,55 @@ import { addDependencies } from './add.js'
 import { initI18n, t } from './i18n.js'
 import fs from 'fs'
 
-function showInstallHelp(target: string) {
+const execAsync = promisify(exec)
+
+async function handleInstall(workspaceRoot: string) {
+    const { install } = await prompts({
+        type: 'confirm',
+        name: 'install',
+        message: t('prompts.installNow'),
+        initial: false
+    })
+
+    if (!install) {
+        const pm = whichPMRuns()
+        const agent = pm?.name || 'npm'
+        const cmd =
+            agent === 'yarn'
+                ? 'yarn'
+                : agent === 'pnpm'
+                  ? 'pnpm install'
+                  : 'npm install'
+
+        console.log(kleur.cyan(`\n${t('messages.nextSteps')}`))
+        console.log(`  cd ${workspaceRoot}`)
+        console.log(`  ${cmd}`)
+        return
+    }
+
     const pm = whichPMRuns()
     const agent = pm?.name || 'npm'
     const cmd =
-        agent === 'yarn'
-            ? 'yarn'
-            : agent === 'pnpm'
-              ? 'pnpm install'
-              : 'npm install'
+        agent === 'yarn' ? 'yarn' : agent === 'pnpm' ? 'pnpm install' : 'npm install'
 
-    console.log(kleur.cyan(`\n${t('messages.nextSteps')}`))
-    console.log(`  cd ${target}`)
-    console.log(`  ${cmd}`)
+    console.log(kleur.cyan(`\n${t('messages.installing')}`))
+    try {
+        await execAsync(cmd, { cwd: workspaceRoot })
+        console.log(kleur.green(t('messages.installSuccess')))
+    } catch (error) {
+        console.error(kleur.red(t('messages.installFailed')))
+        throw error
+    }
 }
 
 export async function start() {
     await initI18n()
     showBanner()
 
-    // const args = parser(process.argv.slice(2), {
-    //     alias: { force: ['f'], yes: ['y'] },
-    //     boolean: ['force', 'yes']
-    // }) as CliArgs
+    process.on('SIGINT', () => {
+        console.log(kleur.red(`\n${t('errors.cancelled')}`))
+        process.exit(0)
+    })
 
     const cwd = process.cwd()
     const ctx = await detectContext(cwd)
@@ -46,17 +74,12 @@ export async function start() {
             initial: false
         })
 
-        if (includeChatlunaFile == null) {
-            console.log(kleur.red(t('errors.cancelled')))
-            process.exit(1)
-        }
-
         await addDependencies({
             target: ctx.root,
             includeChatlunaFile
         })
 
-        showInstallHelp(ctx.root)
+        await handleInstall(ctx.root)
     } else {
         console.log(
             kleur.yellow(`${t('messages.detectedWorkspace')} ${ctx.root}`)
@@ -83,11 +106,6 @@ export async function start() {
             }
         ])
 
-        if (result.name == null) {
-            console.log(kleur.red(t('errors.cancelled')))
-            process.exit(1)
-        }
-
         const isExternal = fs.existsSync(join(ctx.root, 'external'))
 
         const target = join(
@@ -102,6 +120,6 @@ export async function start() {
             template: result.template as TemplateType
         })
 
-        showInstallHelp(target)
+        await handleInstall(ctx.root)
     }
 }

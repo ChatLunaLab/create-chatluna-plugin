@@ -1,5 +1,4 @@
 import { existsSync } from 'fs'
-import fs from 'fs/promises'
 import { join, resolve } from 'path'
 import { fileURLToPath } from 'url'
 import kleur from 'kleur'
@@ -9,6 +8,7 @@ import {
     copyTemplate,
     ensureDir,
     readPackageJson,
+    replaceInDir,
     writePackageJson
 } from './utils.js'
 import { t } from './i18n.js'
@@ -16,7 +16,7 @@ import { t } from './i18n.js'
 const __dirname = fileURLToPath(new URL('.', import.meta.url))
 
 export async function createPlugin(options: CreateOptions) {
-    const { name, target, template } = options
+    const { name, target, template, variables = {} } = options
 
     if (existsSync(target)) {
         const files = await import('fs/promises').then((fs) =>
@@ -43,13 +43,9 @@ export async function createPlugin(options: CreateOptions) {
     pkg.name = name
     await writePackageJson(pkgPath, pkg)
 
-    const mainFile = join(target, 'src/index.ts')
-    let mainContent = await fs.readFile(mainFile, 'utf8')
-    mainContent = mainContent.replace(
-        /chatluna-example/g,
-        name.replace('koishi-plugin-', '')
-    )
-    await fs.writeFile(mainFile, mainContent)
+    const pluginName = name.replace('koishi-plugin-', '')
+    const allVariables = { template: pluginName, ...variables }
+    await replaceInDir(target, allVariables)
 
     console.log(kleur.green(`\n${t('messages.pluginCreated')} ${target}`))
 }

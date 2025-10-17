@@ -7,7 +7,7 @@ export function apply(ctx: Context) {
     // your origin plugin code here
 }
 
-export const name = 'chatluna-example'
+export const name = '${template}'
 
 export interface Config {}
 

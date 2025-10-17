@@ -17,6 +17,7 @@ export interface CreateOptions {
     name: string
     target: string
     template: TemplateType
+    variables?: Record<string, string>
 }
 
 export interface AddOptions {

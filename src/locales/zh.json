@@ -6,7 +6,8 @@
         "pluginNameValidation": "名称必须以 koishi-plugin- 开头",
         "selectTemplate": "选择模板类型：",
         "templateMainDesc": "ChatLuna 插件（完全基于 ChatLuna）",
-        "templateDepDesc": "Koishi 插件（部分功能需要 ChatLuna）"
+        "templateDepDesc": "Koishi 插件（部分功能需要 ChatLuna）",
+        "installNow": "现在安装依赖吗？"
     },
     "messages": {
         "detectedPlugin": "检测到插件目录：",
@@ -14,7 +15,10 @@
         "pluginCreated": "✓ 插件已创建于",
         "dependenciesAdded": "✓ 已添加 ChatLuna 依赖",
         "nextSteps": "下一步：",
-        "packageNotFound": "目标目录中未找到 package.json"
+        "packageNotFound": "目标目录中未找到 package.json",
+        "installing": "正在安装依赖...",
+        "installSuccess": "✓ 依赖安装成功",
+        "installFailed": "✗ 依赖安装失败"
     },
     "errors": {
         "cancelled": "操作已取消"

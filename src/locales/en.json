@@ -6,7 +6,8 @@
         "pluginNameValidation": "Name must start with koishi-plugin-",
         "selectTemplate": "Select template type:",
         "templateMainDesc": "ChatLuna plugin (fully based on ChatLuna)",
-        "templateDepDesc": "Koishi plugin (with ChatLuna features)"
+        "templateDepDesc": "Koishi plugin (with ChatLuna features)",
+        "installNow": "Install dependencies now?"
     },
     "messages": {
         "detectedPlugin": "Detected plugin directory:",
@@ -14,7 +15,10 @@
         "pluginCreated": "✓ Plugin created at",
         "dependenciesAdded": "✓ ChatLuna dependencies added",
         "nextSteps": "Next steps:",
-        "packageNotFound": "package.json not found in target directory"
+        "packageNotFound": "package.json not found in target directory",
+        "installing": "Installing dependencies...",
+        "installSuccess": "✓ Dependencies installed successfully",
+        "installFailed": "✗ Failed to install dependencies"
     },
     "errors": {
         "cancelled": "Cancelled"

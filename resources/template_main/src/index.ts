@@ -7,7 +7,7 @@ export function apply(ctx: Context) {
     // const model = ctx.chatluna.createChatModel(ctx.chatluna.config.defaultModel)
 }
 
-export const name = 'chatluna-example'
+export const name = '${template}'
 
 export interface Config {}
 

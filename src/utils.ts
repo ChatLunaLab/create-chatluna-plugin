@@ -63,6 +63,34 @@ export async function copyTemplate(src: string, dest: string) {
     }
 }
 
+export async function replaceInFile(
+    path: string,
+    variables: Record<string, string>
+) {
+    let content = await fsp.readFile(path, 'utf8')
+    for (const [key, value] of Object.entries(variables)) {
+        content = content.replace(new RegExp(`\\$\\{${key}\\}`, 'g'), value)
+    }
+    await fsp.writeFile(path, content)
+}
+
+export async function replaceInDir(
+    dir: string,
+    variables: Record<string, string>
+) {
+    const entries = await fsp.readdir(dir, { withFileTypes: true })
+    await Promise.all(
+        entries.map(async (entry) => {
+            const path = join(dir, entry.name)
+            if (entry.isDirectory()) {
+                await replaceInDir(path, variables)
+            } else {
+                await replaceInFile(path, variables)
+            }
+        })
+    )
+}
+
 export function showBanner() {
     const banner = `
    ██████╗██╗  ██╗ █████╗ ████████╗██╗     ██╗   ██╗███╗   ██╗ █████╗
