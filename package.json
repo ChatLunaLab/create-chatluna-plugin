@@ -1,12 +1,12 @@
 {
     "name": "create-chatluna-plugin",
-    "version": "1.0.0",
+    "version": "1.0.1",
     "type": "module",
     "description": "Create ChatLuna plugin for Koishi",
     "author": "ChatLuna Contributors",
     "license": "MIT",
-    "bin": "./bin.cjs",
-    "main": "./lib/index.cjs",
+    "bin": "./bin.mjs",
+    "main": "./lib/index.mjs",
     "files": [
         "lib",
         "src",

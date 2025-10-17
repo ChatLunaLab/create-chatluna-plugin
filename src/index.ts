@@ -2,8 +2,7 @@ import { join } from 'path'
 import kleur from 'kleur'
 import prompts from 'prompts'
 import whichPMRuns from 'which-pm-runs'
-import parser from 'yargs-parser'
-import type { CliArgs, TemplateType } from './types.js'
+import type { TemplateType } from './types.js'
 import { detectContext, showBanner } from './utils.js'
 import { createPlugin } from './create.js'
 import { addDependencies } from './add.js'
@@ -28,10 +27,10 @@ export async function start() {
     await initI18n()
     showBanner()
 
-    const args = parser(process.argv.slice(2), {
-        alias: { force: ['f'], yes: ['y'] },
-        boolean: ['force', 'yes']
-    }) as CliArgs
+    // const args = parser(process.argv.slice(2), {
+    //     alias: { force: ['f'], yes: ['y'] },
+    //     boolean: ['force', 'yes']
+    // }) as CliArgs
 
     const cwd = process.cwd()
     const ctx = await detectContext(cwd)
