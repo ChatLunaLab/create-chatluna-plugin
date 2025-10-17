@@ -7,6 +7,7 @@ import { detectContext, showBanner } from './utils.js'
 import { createPlugin } from './create.js'
 import { addDependencies } from './add.js'
 import { initI18n, t } from './i18n.js'
+import fs from 'fs'
 
 function showInstallHelp(target: string) {
     const pm = whichPMRuns()
@@ -87,9 +88,11 @@ export async function start() {
             process.exit(1)
         }
 
+        const isExternal = fs.existsSync(join(ctx.root, 'external'))
+
         const target = join(
             ctx.root,
-            'plugins',
+            isExternal ? 'external' : 'packages',
             result.name.replace('koishi-plugin-', '')
         )
 
