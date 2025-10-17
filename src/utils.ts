@@ -1,6 +1,68 @@
 import { existsSync, promises as fsp } from 'fs'
-import { dirname, join, resolve } from 'path'
-import type { PluginContext } from './types.js'
+import { dirname, join } from 'path'
+import type { PluginContext } from './types'
+import whichPMRuns from 'which-pm-runs'
+import kleur from 'kleur'
+import { t } from './i18n'
+import prompts from 'prompts'
+import { spawn } from 'child_process'
+
+const execAsync = (cmd: string, opts: { cwd: string }) =>
+    new Promise<void>((resolve, reject) => {
+        const proc = spawn(cmd, {
+            cwd: opts.cwd,
+            shell: true,
+            stdio: 'inherit'
+        })
+        const exit = () => proc.kill()
+        process.on('SIGINT', exit).on('SIGTERM', exit)
+        proc.on('close', (code) =>
+            code ? reject(new Error(`Exit ${code}`)) : resolve()
+        ).on('error', reject)
+    })
+
+export async function handleInstall(workspaceRoot: string) {
+    const { install } = await prompts({
+        type: 'confirm',
+        name: 'install',
+        message: t('prompts.installNow'),
+        initial: false
+    })
+
+    if (!install) {
+        const pm = whichPMRuns()
+        const agent = pm?.name || 'npm'
+        const cmd =
+            agent === 'yarn'
+                ? 'yarn'
+                : agent === 'pnpm'
+                  ? 'pnpm install'
+                  : 'npm install'
+
+        console.log(kleur.cyan(`\n${t('messages.nextSteps')}`))
+        console.log(`  cd ${workspaceRoot}`)
+        console.log(`  ${cmd}`)
+        return
+    }
+
+    const pm = whichPMRuns()
+    const agent = pm?.name || 'npm'
+    const cmd =
+        agent === 'yarn'
+            ? 'yarn'
+            : agent === 'pnpm'
+              ? 'pnpm install'
+              : 'npm install'
+
+    console.log(kleur.cyan(`\n${t('messages.installing')}`))
+    try {
+        await execAsync(cmd, { cwd: workspaceRoot })
+        console.log(kleur.green(t('messages.installSuccess')))
+    } catch (error) {
+        console.error(kleur.red(t('messages.installFailed')))
+        throw error
+    }
+}
 
 export async function detectContext(cwd: string): Promise<PluginContext> {
     const pkgPath = join(cwd, 'package.json')

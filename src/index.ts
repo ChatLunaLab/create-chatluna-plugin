@@ -1,56 +1,12 @@
 import { join } from 'path'
 import kleur from 'kleur'
 import prompts from 'prompts'
-import whichPMRuns from 'which-pm-runs'
-import { exec } from 'child_process'
-import { promisify } from 'util'
-import type { TemplateType } from './types.js'
-import { detectContext, showBanner } from './utils.js'
-import { createPlugin } from './create.js'
-import { addDependencies } from './add.js'
-import { initI18n, t } from './i18n.js'
+import type { TemplateType } from './types'
+import { detectContext, handleInstall, showBanner } from './utils'
+import { createPlugin } from './create'
+import { addDependencies } from './add'
+import { initI18n, t } from './i18n'
 import fs from 'fs'
-
-const execAsync = promisify(exec)
-
-async function handleInstall(workspaceRoot: string) {
-    const { install } = await prompts({
-        type: 'confirm',
-        name: 'install',
-        message: t('prompts.installNow'),
-        initial: false
-    })
-
-    if (!install) {
-        const pm = whichPMRuns()
-        const agent = pm?.name || 'npm'
-        const cmd =
-            agent === 'yarn'
-                ? 'yarn'
-                : agent === 'pnpm'
-                  ? 'pnpm install'
-                  : 'npm install'
-
-        console.log(kleur.cyan(`\n${t('messages.nextSteps')}`))
-        console.log(`  cd ${workspaceRoot}`)
-        console.log(`  ${cmd}`)
-        return
-    }
-
-    const pm = whichPMRuns()
-    const agent = pm?.name || 'npm'
-    const cmd =
-        agent === 'yarn' ? 'yarn' : agent === 'pnpm' ? 'pnpm install' : 'npm install'
-
-    console.log(kleur.cyan(`\n${t('messages.installing')}`))
-    try {
-        await execAsync(cmd, { cwd: workspaceRoot })
-        console.log(kleur.green(t('messages.installSuccess')))
-    } catch (error) {
-        console.error(kleur.red(t('messages.installFailed')))
-        throw error
-    }
-}
 
 export async function start() {
     await initI18n()

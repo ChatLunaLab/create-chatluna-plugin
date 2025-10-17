@@ -3,15 +3,15 @@ import { join, resolve } from 'path'
 import { fileURLToPath } from 'url'
 import kleur from 'kleur'
 import prompts from 'prompts'
-import type { CreateOptions } from './types.js'
+import type { CreateOptions } from './types'
 import {
     copyTemplate,
     ensureDir,
     readPackageJson,
     replaceInDir,
     writePackageJson
-} from './utils.js'
-import { t } from './i18n.js'
+} from './utils'
+import { t } from './i18n'
 
 const __dirname = fileURLToPath(new URL('.', import.meta.url))
 
