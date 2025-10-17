@@ -7,7 +7,10 @@ const __dirname = fileURLToPath(new URL('.', import.meta.url))
 
 // eslint-disable-next-line @typescript-eslint/no-explicit-any
 type Messages = Record<string, any>
-const locales: Record<string, Messages> = {}
+const locales: Record<string, Messages> = {
+    en: require('./locales/en.json'),
+    zh: require('./locales/zh.json')
+}
 let messages: Messages
 
 async function detectLocale(): Promise<string> {

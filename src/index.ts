@@ -45,6 +45,11 @@ export async function start() {
             initial: false
         })
 
+        if (includeChatlunaFile == null) {
+            console.log(kleur.red(t('errors.cancelled')))
+            process.exit(1)
+        }
+
         await addDependencies({
             target: ctx.root,
             includeChatlunaFile
@@ -76,6 +81,11 @@ export async function start() {
                 ]
             }
         ])
+
+        if (result.name == null) {
+            console.log(kleur.red(t('errors.cancelled')))
+            process.exit(1)
+        }
 
         const target = join(
             ctx.root,

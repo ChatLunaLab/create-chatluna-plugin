@@ -15,5 +15,8 @@
         "dependenciesAdded": "✓ 已添加 ChatLuna 依赖",
         "nextSteps": "下一步：",
         "packageNotFound": "目标目录中未找到 package.json"
+    },
+    "errors": {
+        "cancelled": "操作已取消"
     }
 }
