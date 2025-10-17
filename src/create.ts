@@ -18,7 +18,7 @@ export async function createPlugin(options: CreateOptions) {
     const { name, target, template } = options
 
     if (existsSync(target)) {
-        const files = await import('node:fs/promises').then((fs) =>
+        const files = await import('fs/promises').then((fs) =>
             fs.readdir(target)
         )
         if (files.length > 0) {
