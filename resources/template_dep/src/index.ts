@@ -4,7 +4,7 @@ import * as chatluna from './chatluna'
 export function apply(ctx: Context) {
     // load chatluna plugin
     ctx.plugin(chatluna)
-    // your plugin code here
+    // your origin plugin code here
 }
 
 export const name = 'chatluna-example'

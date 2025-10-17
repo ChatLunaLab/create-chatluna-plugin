@@ -1,4 +1,5 @@
 import { existsSync } from 'fs'
+import fs from 'fs/promises'
 import { join, resolve } from 'path'
 import { fileURLToPath } from 'url'
 import kleur from 'kleur'
@@ -41,6 +42,14 @@ export async function createPlugin(options: CreateOptions) {
     const pkg = await readPackageJson(pkgPath)
     pkg.name = name
     await writePackageJson(pkgPath, pkg)
+
+    const mainFile = join(target, 'index.ts')
+    let mainContent = await fs.readFile(mainFile, 'utf8')
+    mainContent = mainContent.replace(
+        /chatluna-example/g,
+        name.replace('koishi-plugin-', '')
+    )
+    await fs.writeFile(mainFile, mainContent)
 
     console.log(kleur.green(`\n${t('messages.pluginCreated')} ${target}`))
 }
