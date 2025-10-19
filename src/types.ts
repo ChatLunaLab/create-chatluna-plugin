@@ -11,7 +11,7 @@ export interface PluginContext {
     isWorkspace: boolean
 }
 
-export type TemplateType = 'main' | 'dep'
+export type TemplateType = 'main' | 'dep' | 'adapter'
 
 export interface CreateOptions {
     name: string

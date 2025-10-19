@@ -20,10 +20,10 @@ export async function addDependencies(options: AddOptions) {
     const pkg = await readPackageJson(pkgPath)
 
     pkg.peerDependencies = pkg.peerDependencies || {}
-    pkg.peerDependencies['koishi-plugin-chatluna'] = '^1.3.0-alpha.69'
+    pkg.peerDependencies['koishi-plugin-chatluna'] = '^1.3.0-alpha.71'
 
     pkg.devDependencies = pkg.devDependencies || {}
-    pkg.devDependencies['koishi-plugin-chatluna'] = '^1.3.0-alpha.69'
+    pkg.devDependencies['koishi-plugin-chatluna'] = '^1.3.0-alpha.71'
 
     pkg.dependencies = pkg.dependencies || {}
     pkg.dependencies['@langchain/core'] = '0.3.62'
@@ -40,6 +40,11 @@ export async function addDependencies(options: AddOptions) {
     pkg.pnpm.overrides = pkg.pnpm.overrides || {}
     pkg.pnpm.overrides['@langchain/core'] = '0.3.62'
     pkg.pnpm.overrides['js-tiktoken'] = 'npm:@dingyi222666/js-tiktoken@^1.0.21'
+
+    pkg.koishi = pkg.koishi || {}
+    pkg.koishi.services = pkg.koishi.services || {}
+    pkg.koishi.services.optional = pkg.koishi.services.optional || []
+    pkg.koishi.services.optional.push('chatluna')
 
     await writePackageJson(pkgPath, pkg)
 

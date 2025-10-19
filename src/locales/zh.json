@@ -4,9 +4,12 @@
         "includeChatlunaFile": "是否包含 chatluna.ts 文件？（用于编写 ChatLuna 插件的功能）",
         "pluginName": "插件名称：",
         "pluginNameValidation": "名称必须以 koishi-plugin- 开头",
+        "adapterName": "适配器名称（不含前缀）：",
+        "adapterNameValidation": "适配器名称只能包含小写字母、数字和连字符",
         "selectTemplate": "选择模板类型：",
         "templateMainDesc": "ChatLuna 插件（完全基于 ChatLuna）",
         "templateDepDesc": "Koishi 插件（部分功能需要 ChatLuna）",
+        "templateAdapterDesc": "ChatLuna 模型适配器",
         "installNow": "现在安装依赖吗？"
     },
     "messages": {

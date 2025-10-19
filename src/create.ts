@@ -43,7 +43,17 @@ export async function createPlugin(options: CreateOptions) {
     pkg.name = name
     await writePackageJson(pkgPath, pkg)
 
-    const pluginName = name.replace('koishi-plugin-', '')
+    // Extract plugin name for template variable replacement
+    let pluginName: string
+    if (template === 'adapter') {
+        // For adapter template, extract the adapter name
+        // koishi-plugin-chatluna-adapter-xxx -> xxx
+        pluginName = name.replace('koishi-plugin-chatluna-adapter-', '')
+    } else {
+        // For other templates, remove koishi-plugin- prefix
+        pluginName = name.replace('koishi-plugin-', '')
+    }
+
     const allVariables = { template: pluginName, ...variables }
     await replaceInDir(target, allVariables)
 

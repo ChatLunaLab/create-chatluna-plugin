@@ -43,35 +43,56 @@ export async function start() {
 
         const result = await prompts([
             {
-                type: 'text',
+                type: 'select',
+                name: 'template',
+                message: t('prompts.selectTemplate'),
+                choices: [
+                    { title: t('prompts.templateMainDesc'), value: 'main' },
+                    { title: t('prompts.templateDepDesc'), value: 'dep' },
+                    {
+                        title: t('prompts.templateAdapterDesc'),
+                        value: 'adapter'
+                    }
+                ]
+            },
+            {
+                type: (prev) => (prev === 'adapter' ? 'text' : null),
+                name: 'adapterName',
+                message: t('prompts.adapterName'),
+                initial: 'example',
+                validate: (v: string) =>
+                    /^[a-z0-9-]+$/.test(v) || t('prompts.adapterNameValidation')
+            },
+            {
+                type: (prev, values) =>
+                    values.template !== 'adapter' ? 'text' : null,
                 name: 'name',
                 message: t('prompts.pluginName'),
                 initial: 'koishi-plugin-chatluna-example',
                 validate: (v: string) =>
                     v.startsWith('koishi-plugin-') ||
                     t('prompts.pluginNameValidation')
-            },
-            {
-                type: 'select',
-                name: 'template',
-                message: t('prompts.selectTemplate'),
-                choices: [
-                    { title: t('prompts.templateMainDesc'), value: 'main' },
-                    { title: t('prompts.templateDepDesc'), value: 'dep' }
-                ]
             }
         ])
+
+        // Construct the full plugin name
+        let pluginName: string
+        if (result.template === 'adapter') {
+            pluginName = `koishi-plugin-chatluna-adapter-${result.adapterName}`
+        } else {
+            pluginName = result.name
+        }
 
         const isExternal = fs.existsSync(join(ctx.root, 'external'))
 
         const target = join(
             ctx.root,
             isExternal ? 'external' : 'packages',
-            result.name.replace('koishi-plugin-', '')
+            pluginName.replace('koishi-plugin-', '')
         )
 
         await createPlugin({
-            name: result.name,
+            name: pluginName,
             target,
             template: result.template as TemplateType
         })

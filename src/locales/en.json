@@ -4,9 +4,12 @@
         "includeChatlunaFile": "Include chatluna.ts file?",
         "pluginName": "Plugin name:",
         "pluginNameValidation": "Name must start with koishi-plugin-",
+        "adapterName": "Adapter name (without prefix):",
+        "adapterNameValidation": "Adapter name must contain only lowercase letters, numbers, and hyphens",
         "selectTemplate": "Select template type:",
         "templateMainDesc": "ChatLuna plugin (fully based on ChatLuna)",
         "templateDepDesc": "Koishi plugin (with ChatLuna features)",
+        "templateAdapterDesc": "ChatLuna model adapter",
         "installNow": "Install dependencies now?"
     },
     "messages": {

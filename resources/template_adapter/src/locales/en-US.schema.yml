@@ -1,0 +1,15 @@
+$inner:
+    - {}
+    - $desc: Request Options
+      apiKeys:
+          $desc: API Key list for authentication.
+          $inner:
+              - API Key
+              - Enable this configuration
+      apiEndpoint: API endpoint URL (optional, use default if empty)
+
+    - $desc: Model Configuration
+      maxContextRatio: Maximum context usage ratio (0~1). Controls the maximum percentage of the model context window that can be used. For example, 0.35 means up to 35% of the model context.
+      temperature: Degree of randomness in responses. Higher values result in more random responses.
+      presencePenalty: Presence penalty coefficient. Higher values reduce the likelihood of repeating tokens that have appeared at least once (range 0~2, step 0.1).
+      frequencyPenalty: Frequency penalty coefficient. Higher values reduce the likelihood of frequently appearing tokens (range 0~2, step 0.1).
