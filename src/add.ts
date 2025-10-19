@@ -20,10 +20,10 @@ export async function addDependencies(options: AddOptions) {
     const pkg = await readPackageJson(pkgPath)
 
     pkg.peerDependencies = pkg.peerDependencies || {}
-    pkg.peerDependencies['koishi-plugin-chatluna'] = '^1.3.0-alpha.67'
+    pkg.peerDependencies['koishi-plugin-chatluna'] = '^1.3.0-alpha.69'
 
     pkg.devDependencies = pkg.devDependencies || {}
-    pkg.devDependencies['koishi-plugin-chatluna'] = '^1.0.0'
+    pkg.devDependencies['koishi-plugin-chatluna'] = '^1.3.0-alpha.69'
 
     pkg.dependencies = pkg.dependencies || {}
     pkg.dependencies['@langchain/core'] = '0.3.62'

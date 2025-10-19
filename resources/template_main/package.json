@@ -50,11 +50,12 @@
         "yakumo": "^1.0.0",
         "yakumo-esbuild": "^1.0.0",
         "yakumo-mocha": "^1.0.0",
-        "yakumo-tsc": "^1.0.0"
+        "yakumo-tsc": "^1.0.0",
+        "koishi-plugin-chatluna": "^1.3.0-alpha.69"
     },
     "peerDependencies": {
         "koishi": "^4.18.9",
-        "koishi-plugin-chatluna": "^1.3.0-alpha.68"
+        "koishi-plugin-chatluna": "^1.3.0-alpha.69"
     },
     "engines": {
         "node": ">=18.0.0"

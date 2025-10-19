@@ -26,7 +26,7 @@ export async function handleInstall(workspaceRoot: string) {
         type: 'confirm',
         name: 'install',
         message: t('prompts.installNow'),
-        initial: false
+        initial: true
     })
 
     if (!install) {
