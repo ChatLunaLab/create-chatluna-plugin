@@ -1,6 +1,6 @@
 {
     "name": "create-chatluna-plugin",
-    "version": "1.0.8",
+    "version": "1.0.10",
     "type": "module",
     "description": "Create ChatLuna plugin for Koishi",
     "author": "ChatLuna Contributors",
@@ -34,8 +34,8 @@
         "@types/yargs-parser": "^21.0.3",
         "@typescript-eslint/eslint-plugin": "^7.18.1-alpha.3",
         "@typescript-eslint/parser": "^8.45.1-alpha.0",
-        "esbuild": "^0.25.10",
         "atsc": "^1.2.2",
+        "esbuild": "^0.25.10",
         "esbuild-register": "npm:@shigma/esbuild-register@^1.1.1",
         "eslint": "^8.57.1",
         "eslint-config-prettier": "^9.1.2",
